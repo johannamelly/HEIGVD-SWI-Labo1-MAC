@@ -84,12 +84,16 @@ Il peut être utile de détecter si certains utilisateurs se trouve dans les par
 La détection de client s'utilise également à des fins de recherche de marketing. Aux Etats Unis, par exemple, on sniffe dans les couloirs de centres commerciaux pour détecter, par exemple, quelles vitrines attirent plus de visiteurs, et quelle marque de téléphone ils utilisent. Ce service, interconnecté en réseau, peut aussi déterminer si un client visite plusieurs centres commerciaux un même jour ou sur un certain intervalle de temps.
 
 __ATTENTION__ : Le suivi de clients iPhone n'est plus possible que dans certaines conditions depuis la version 8 d'iOS.
- 
+
 * Développer un script en Python/Scapy capable de capturer les trames nécessaires pour la détection de clients 802.11. Le script se lance en ligne de commandes avec comme argument une adresse MAC d'un certain client. Le script surveille ensuite les messages capturés et imprime une confirmation quand l'adresse est détectée.
 
 __Question__ : quel type de trames sont nécessaires pour détecter les clients de manière passive ?
 
+Les probe requests permettent de le détecter.
+
 __Question__ : pourquoi le suivi n'est-il plus possible sur iPhone depuis iOS 8 ?
+
+Parce que iOS randomise les adresses MAC lors de la recherche WIFI.
 
 
 ### 2. Clients WiFi bavards
