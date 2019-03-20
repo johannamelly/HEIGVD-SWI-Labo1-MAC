@@ -10,13 +10,21 @@ stations = []
 
 def handler(packet):
 	# if packet has a 802.11 layer and is a data frame
-	if(packet.haslayer(Dot11) and packet.type == 2):
-		# getting station MAC receiving address
-		receiver = packet.getlayer(Dot11).addr1.upper()
-		
-		# keeping a list of the stations
-		if (receiver not in stations):
-			stations.append(receiver)
+	if(packet.haslayer(Dot11Beacon)):
+			print(packet.info)	
+			print(packet.addr3)
+			print("coucou")
+	if(packet.haslayer(Dot11)):
+#		if( packet.ID == 0):
+#			print("he :" + str(packet) )
+#			print("SSID ? " + packet.info)
+		if( packet.type == 2):
+			# getting station MAC receiving address
+			receiver = packet.getlayer(Dot11).addr1.upper()
+			
+			# keeping a list of the stations
+			if (receiver not in stations):
+				stations.append(receiver)
 
 timer = raw_input("How long do you want me to search for this address (seconds)? ")
 timer = int(timer)
@@ -26,4 +34,7 @@ sniff(iface="mon1", prn = handler, timeout=timer)
 for sta in stations:
 	r = requests.get(MAC_URL % sta)
 	res = r.json()['result']
-	print("%s (%s) - %s" % (sta, res['company'], res['address']))
+	if('error' in res):
+		print(sta)
+	else:
+		print("%s (%s) - %s" % (sta, res['company'], res['address']))
